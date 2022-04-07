@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        
+        ul,
+        li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        main {
+            background: url("../Project_game/img/背景1.png") center/cover no-repeat;
+            height: 100%;
+        }
+        
+        header {
+            width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .clock {
+            background: url("../Project_game/img/表.png") center/100px no-repeat;
+            width: 100px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .clock span {
+            font-size: 28px;
+            position: relative;
+            top: 15px;
+        }
+        
+        .plane {
+            background: url("../Project_game/img/直升机.jif") center/120px no-repeat;
+            width: 120px;
+            height: 100px;
+        }
+        
+        .score_wrap {
+            border: 2px solid rgb(142, 231, 253);
+            border-radius: 8px;
+            width: 200px;
+            height: 60px;
+            background: white;
+            margin-top: -30px;
+            display: flex;
+        }
+        
+        .score_text,
+        .score_calc {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .score_text {
+            border-right: 2px solid rgb(142, 231, 253);
+        }
+        /*  */
+        
+        section {
+            display: flex;
+            width: 1000px;
+            margin: 0 auto;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            height: 380px;
+            top: 32px;
+        }
+        
+        .person {
+            background: url("../Project_game/img/扔垃圾.jif") left center/150px no-repeat;
+            background-position: left -7px;
+            width: 70px;
+            height: 100px;
+        }
+        
+        .person .rubbish {
+            position: absolute;
+            background: url("../Project_game/img/厨余垃圾/菜叶.png") center bottom/80px no-repeat;
+            width: 50px;
+            height: 40px;
+            bottom: 30px;
+            left: 10px;
+            display: none;
+        }
+        
+        .cai {
+            background: url("../Project_game/img/cai1.png") center bottom/180px no-repeat;
+            width: 60px;
+            height: 95px;
+        }
+        
+        .rablish_wrap {
+            display: flex;
+            width: 580px;
+           
+        }
+        
+        .rablish_wrap .rablish {
+            width: 100px;
+            height: 120px;
+            margin-left: 20px;
+            position: relative;
+            z-index: 99;
+        }
+        
+        .rablish_wrap .frist {
+            background: url("../Project_game/img/湿垃圾桶.png") center/100px no-repeat;
+        }
+        
+        .rablish_wrap .second {
+            position: relative;
+            left: 18px;
+            background: url("../Project_game/img/干垃圾桶.png") center/100px no-repeat;
+        }
+        
+        .rablish_wrap .three {
+            position: relative;
+            left: 40px;
+            background: url("../Project_game/img/可回收垃圾桶.png") center/100px no-repeat;
+        }
+        
+        .rablish_wrap .four {
+            position: relative;
+            left: 85px;
+            background: url("../Project_game/img/有害垃圾桶.png") center/100px no-repeat;
+        }
+        
+        footer {
+            display: flex;
+            justify-content: flex-end;
+            width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            top: 30px;
+        }
+        
+        .btn_list {
+            display: flex;
+        }
+        
+        .btn_list .btn {
+            padding: 10px 30px;
+            border: 3px solid #000;
+            margin-left: 20px;
+            border-radius: 8px;
+            background: #22b14c;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        .btn_list .btn:nth-child(2) {
+            background: #dde640;
+        }
+        
+        .btn_list .btn:nth-child(3) {
+            background-color: #00a2e8;
+        }
+        
+        .btn_list .btn:nth-child(4) {
+            background-color: #ff3e3e;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <header>
+            <div class="clock">
+                <span id="aaa">60</span>
+            </div>
+            <div class="plane"></div>
+            <div class="score_wrap">
+                <div class="score_text">分数：</div>
+                <div class="score_calc">0</div>
+            </div>
+        </header>
+        <section>
+            <div class="person">
+                <i class="rubbish" style="bottom: 40px; left: 35px"></i>
+            </div>
+            <div class="cai"></div>
+            <ul class="rablish_wrap">
+                <li class="rablish frist"></li>
+                <li class="rablish second"></li>
+                <li class="rablish three"></li>
+                <li class="rablish four"></li>
+            </ul>
+        </section>
+        <footer>
+            <ol class="btn_list">
+                <li class="btn">厨余垃圾</li>
+                <li class="btn">干垃圾</li>
+                <li class="btn">可回收垃圾</li>
+                <li class="btn">有害垃圾</li>
+            </ol>
+        </footer>
+    </main>
+    <script>
+        /***********************  动画  ***************************/
+        var $rubbish = document.querySelector(".rubbish");
+        var $cai = document.querySelector(".cai");
+        var $person = document.querySelector(".person");
+
+        /* 初始动画设置 */
+        var isStop = false; //倒计时结束时，停止动画
+        startMove();
+
+        function startMove() {
+            var time = setTimeout(() => {
+                $person.style.backgroundImage = "url(../Project_game/img/魔理沙_待机.png)";
+                //重置完小女孩的动画后，就停止
+                if (isStop) {
+                    clearTimeout(time);
+                    return;
+                }
+                $rubbish.style.left = "35px";
+                $rubbish.style.bottom = "40px";
+                $rubbish.style.backgroundImage = "url(" + random() + ")";
+                $rubbish.style.display = "block";
+
+                move();
+            }, 500);
+        }
+
+        /* 随机值 */
+        var rablishType = ["厨余垃圾", "干垃圾", "可回收垃圾", "有害垃圾"];
+
+        function random() {
+            var rubbishList = [
+                [
+                    "../Project_game/img/厨余垃圾/苹果.png",
+                    "../Project_game/img/厨余垃圾/菜叶.png",
+                    "../Project_game/img/厨余垃圾/香蕉皮.png",
+                    "../Project_game/img/厨余垃圾/鸡蛋壳.png",
+                ],
+                [ 
+                    "../Project_game/img/干垃圾/尿不湿.png",
+                    "../Project_game/img/干垃圾/橡皮泥.png",
+                    "../Project_game/img/干垃圾/皮球.png",
+                    "../Project_game/img/干垃圾/陶瓷.png",
+                    
+                ],
+                [
+                    "../Project_game/img/可回收垃圾/塑料袋.png",
+                    "../Project_game/img/可回收垃圾/塑料袋.png",
+                    "../Project_game/img/可回收垃圾/易拉罐.png",
+                    "../Project_game/img/可回收垃圾/衣服.png",
+                ],
+                [
+                    "../Project_game/img/有害垃圾/杀虫剂.png",
+                    "../Project_game/img/有害垃圾/油漆.png",
+                    "../Project_game/img/有害垃圾/电池.png",
+                    "../Project_game/img/有害垃圾/药水.png",
+                ],
+            ];
+            var randomNumber = function() {
+                return Math.floor(Math.random() * rubbishList.length);
+            };
+            //记录是哪一种垃圾类型，下面得分的时候判断
+            rablishType = randomNumber();
+            return rubbishList[rablishType][randomNumber()];
+        }
+
+        /* 垃圾的动画轨迹 */
+        var xSpeedChange = 3;
+        var ySpeedChange = 6.5;
+
+        function move() {
+            var leftDis = parseInt($rubbish.style.left);
+            var bottomDis = parseInt($rubbish.style.bottom);
+            var bottomInitDis = parseInt($rubbish.style.bottom);
+            var ySpeed = 5.5;
+            var xSpeed = 2.6;
+            var hwSpeed = 0.15;
+            var count = 0;
+
+            var moveTime = setInterval(function() {
+                leftDis = leftDis + xSpeed;
+                ySpeed = ySpeed - hwSpeed;
+                bottomDis = bottomDis + ySpeed;
+                if (bottomDis <= bottomInitDis) {
+                    count++;
+                    if (count == 2) {
+                        $rubbish.style.display = "none";
+                        //重置游戏，让小女孩重新扔垃圾
+                        $person.style.backgroundImage = "url(../Project_game/img/扔垃圾.gif)";
+                        startMove();
+                        //清除定时器
+                        clearInterval(moveTime);
+                    } else {
+                        //蔡徐坤顶
+                        $cai.style.backgroundImage = "url(../Project_game/img/cai2.gif)";
+                        ySpeed = ySpeedChange;
+                        xSpeed = xSpeedChange;
+                        setTimeout(() => {
+                            $cai.style.backgroundImage = "url(../Project_game/img/cai1.png)";
+                        }, 300);
+                    }
+                } else {
+                    $rubbish.style.left = leftDis + "px";
+                    $rubbish.style.bottom = bottomDis + "px";
+                }
+            }, 16.7);
+        }
+
+        /* 四个按钮的事件 */
+        btnClick();
+
+        function btnClick() {
+            var $btnList = document.querySelectorAll(".btn");
+            var $scoreCalc = document.querySelector(".score_calc");
+            var xSpeedArr = [3, 4.0, 4.8, 5.6];
+            var ySpeedArr = [6.5, 7.5, 8.5, 9.5];
+            for (var i = 0; i < $btnList.length; i++) {
+                $btnList[i].index = i;
+                $btnList[i].onclick = function() {
+                    xSpeedChange = xSpeedArr[this.index];
+                    ySpeedChange = ySpeedArr[this.index];
+                    
+                    //如果随机出来的垃圾类型和点击类型相同得分
+                    if (rablishType == this.index) {
+                        $scoreCalc.innerHTML = parseInt($scoreCalc.innerHTML) + 10;
+                    }
+                }
+            }
+        }
+
+        /* 定时器 */
+        countDown();
+
+        function countDown() {
+            var $time = document.querySelector(".clock span");
+            var initTime = $time.innerHTML;
+            var timer = setInterval(function() {
+                if (initTime === 0) {
+                    clearInterval(timer);
+                    isStop = true;
+                    return;
+                }
+
+                initTime = initTime - 1;
+                $time.innerHTML = initTime;
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>
